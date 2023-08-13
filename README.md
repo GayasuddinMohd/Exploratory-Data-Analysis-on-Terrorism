@@ -1,4 +1,4 @@
-![Image Alt Text](https://github.com/GayasuddinMohd/Exploratory-Data-Analysis-on-Terrorism/blob/main/Terrorism%20Image.jpg?raw=true)
+![Image Alt Text](https://raw.githubusercontent.com/GayasuddinMohd/Canada-Per-Capita-Income-Prediction/main/investing-money-to-canada-rich-man-lot-money-investing-money-to-canada-rich-man-lot-money-his-hands-168864715.webp)
 
 # 🌸  Terrorism  🌸 
 Terrorism, the calculated use of violence to create a general climate of fear in a population and thereby to bring about a particular political objective.
