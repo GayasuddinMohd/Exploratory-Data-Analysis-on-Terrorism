@@ -1,29 +1,15 @@
 ![Image Alt Text](https://i.guim.co.uk/img/media/4eccf49f2cc53d7fb74c73afdd20f9e0af3fc850/0_0_5616_3744/master/5616.jpg?width=620&dpr=2&s=none)
 
 # Global Terrorism Patterns : A Data Analysis Perspective 
-The Terrorism Dataset Analysis delves into the complex landscape of terrorist incidents worldwide, shedding light on patterns, trends, and dynamics related to acts of terrorism. In this exploratory data analysis (EDA), we will analyze the dataset to uncover insights into terrorist attacks, their characteristics, locations, and the evolving nature of global terrorism.
+The Terrorism data analysis delves into the complex landscape of terrorist incidents worldwide, shedding light on patterns, trends, and dynamics related to acts of terrorism. In this analysis, we will analyze the dataset to uncover insights into terrorist attacks, their characteristics, locations, and the evolving nature of global terrorism.
 
-# 🌸  Repository Overview  🌸
-This repository is about EDA performed on the Terrorism.
-   - It has a python notebook where all the coding has been done.
-   - It also has the relevant datasets and files used for this analysis.
-
-# 🌸  Technologies Used  🌸
+# Technologies Used  
 * Python
-* Numpy
-* Pandas
-* Matplotlib
-* Seaborn
-* Plotly
-* Jupyter Notebok
-* Kaggle
-* Statistics
-
-# 🌸  Dataset  🌸
-* You can download the dataset from the kaggle website.
-* https://www.kaggle.com/datasets/START-UMD/gtd?select=globalterrorismdb_0718dist.csv
-
-# 🌸  Summary  🌸
+  
+# Dataset  
+* Download the dataset from [Kaggle](https://www.kaggle.com/datasets/START-UMD/gtd?select=globalterrorismdb_0718dist.csv).
+  
+# Insights  
 * 2014 was the deadliest year, where the maximum number of attacks takes place.
 * After 2010 there is huge growth in the terrorist attacks in almost all regions of the world.
 * Middle East & North Africa and South Asia has the highest number of attacks among all regions in the world.
