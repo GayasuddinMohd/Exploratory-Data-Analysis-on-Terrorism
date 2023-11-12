@@ -1,9 +1,6 @@
 ![Image Alt Text](https://i.guim.co.uk/img/media/4eccf49f2cc53d7fb74c73afdd20f9e0af3fc850/0_0_5616_3744/master/5616.jpg?width=620&dpr=2&s=none)
 
-# 🌸  Terrorism  🌸 
-Terrorism, the calculated use of violence to create a general climate of fear in a population and thereby to bring about a particular political objective.
-
-# 🌸  Exploratory Data Analysis on Terrorism  🌸
+# Global Terrorism Patterns : A Data Analysis Perspective 
 The Terrorism Dataset Analysis delves into the complex landscape of terrorist incidents worldwide, shedding light on patterns, trends, and dynamics related to acts of terrorism. In this exploratory data analysis (EDA), we will analyze the dataset to uncover insights into terrorist attacks, their characteristics, locations, and the evolving nature of global terrorism.
 
 # 🌸  Repository Overview  🌸
