@@ -1,4 +1,4 @@
-![Image Alt Text](https://github.com/GayasuddinMohd/Exploratory-Data-Analysis-on-Terrorism/blob/main/Terrorism%20Image.jpg?raw=true)
+![Image Alt Text](https://i.guim.co.uk/img/media/4eccf49f2cc53d7fb74c73afdd20f9e0af3fc850/0_0_5616_3744/master/5616.jpg?width=620&dpr=2&s=none)
 
 # 🌸  Terrorism  🌸 
 Terrorism, the calculated use of violence to create a general climate of fear in a population and thereby to bring about a particular political objective.
