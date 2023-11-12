@@ -25,10 +25,7 @@ The Terrorism data analysis delves into the complex landscape of terrorist incid
 * Terrorists target Private Citizens & Property maximum number of times.
 * Year 2014 is the deadliest year in the history of terrorism. About 16000 people died in the single year by terrorism.
 
-# 🌸  Conclusion  🌸
-Through this EDA, we aim to understand the dynamics of terrorism, its global reach, and the impact on societies. The analysis will provide insights into the evolution of terrorist tactics, the role of regions, and the need for effective counterterrorism measures.
 
-As we delve into this dataset, we acknowledge the tragic nature of terrorist incidents and their far-reaching consequences. The Terrorism Dataset Analysis serves as a reminder of the challenges that nations and societies face in confronting acts of violence and extremism, and the importance of fostering security, peace, and international cooperation.
 
 
 
