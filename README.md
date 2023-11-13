@@ -3,7 +3,7 @@
 # Global Terrorism Patterns : A Data Analysis Perspective 
 The Terrorism data analysis delves into the complex landscape of terrorist incidents worldwide, shedding light on patterns, trends, and dynamics related to acts of terrorism. In this analysis, we will analyze the dataset to uncover insights into terrorist attacks, their characteristics, locations, and the evolving nature of global terrorism.
 
-# Technologies Used  
+# Skills
 * Python
   
 # Dataset  
