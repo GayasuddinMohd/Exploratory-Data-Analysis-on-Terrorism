@@ -16,7 +16,7 @@ You can view various plots and insights extracted from the data.
 # Load the dataset (update the path to where your dataset is located)
 @st.cache_data
 def load_data():
-    df = pd.read_excel("C:\\Users\\abc\\Desktop\\globalterrorism.xlsx")
+    df = pd.read_excel("globalterrorism.xlsx")
 
     # Extract and rename relevant columns
     df = df[['iyear', 'country_txt', 'region_txt', 'city', 'attacktype1_txt', 'targtype1_txt', 'gname', 'nkill']]
