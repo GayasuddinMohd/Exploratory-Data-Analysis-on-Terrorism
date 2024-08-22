@@ -28,9 +28,9 @@ df = pd.read_excel(BytesIO(response.content))
 # Now you can work with the DataFrame as usual
 st.write(df)
 
-    # Extract and rename relevant columns
-    df = df[['iyear', 'country_txt', 'region_txt', 'city', 'attacktype1_txt', 'targtype1_txt', 'gname', 'nkill']]
-    df.rename(columns={
+# Extract and rename relevant columns
+df = df[['iyear', 'country_txt', 'region_txt', 'city', 'attacktype1_txt', 'targtype1_txt', 'gname', 'nkill']]
+df.rename(columns={
         'iyear': 'year',
         'country_txt': 'country',
         'region_txt': 'region',
@@ -38,12 +38,12 @@ st.write(df)
         'targtype1_txt': 'target',
         'gname': 'organization',
         'nkill': 'killed'
-    }, inplace=True)
+}, inplace=True)
 
-    # Drop rows with missing values and clean the data
-    df = df.dropna()
-    df = df.astype({'killed': 'int'})
-    return df
+# Drop rows with missing values and clean the data
+df = df.dropna()
+df = df.astype({'killed': 'int'})
+return df
 
 
 data = load_data()
