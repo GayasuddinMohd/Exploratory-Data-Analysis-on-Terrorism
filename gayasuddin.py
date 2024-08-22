@@ -53,6 +53,22 @@ dark_theme_css = """
     </style>
 """
 
+# Initialize the session state for theme if not set
+if 'theme' not in st.session_state:
+    st.session_state.theme = "Light"
+
+# Add a theme toggle to the sidebar
+theme = st.sidebar.radio("Select Theme", ["Light", "Dark"])
+
+# Update session state based on user selection
+st.session_state.theme = theme
+
+# Apply the theme based on the session state
+if st.session_state.theme == "Dark":
+    st.markdown(dark_theme_css, unsafe_allow_html=True)
+else:
+    st.markdown(light_theme_css, unsafe_allow_html=True)
+
 # Set the title of the Streamlit app
 st.title("Global Terrorism Analysis")
 
@@ -61,15 +77,6 @@ st.markdown("""
 This application provides an interactive interface to explore the Global Terrorism dataset.
 You can view various plots and insights extracted from the data.
 """, unsafe_allow_html=True)
-
-# Add a theme toggle to the sidebar
-theme = st.sidebar.radio("Select Theme", ["Light", "Dark"])
-
-# Apply theme based on user selection
-if theme == "Dark":
-    st.markdown(dark_theme_css, unsafe_allow_html=True)
-else:
-    st.markdown(light_theme_css, unsafe_allow_html=True)
 
 # Load the dataset (update the path to where your dataset is located)
 @st.cache_data
