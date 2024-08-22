@@ -3,6 +3,56 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+# Set the initial theme
+st.set_page_config(page_title="Global Terrorism Analysis", layout="wide", initial_sidebar_state="expanded")
+
+# Define the custom CSS for light and dark themes
+light_theme_css = """
+    <style>
+    .reportview-container {
+        background-color: #ffffff;
+        color: black;
+    }
+    .sidebar .sidebar-content {
+        background-color: #f5f5f5;
+        color: black;
+    }
+    .markdown-text-container {
+        color: black;
+    }
+    .stButton > button {
+        background-color: #e0e0e0;
+        color: black;
+    }
+    .stSelectbox > div, .stRadio > div {
+        color: black;
+    }
+    </style>
+"""
+
+dark_theme_css = """
+    <style>
+    .reportview-container {
+        background-color: #2e2e2e;
+        color: white;
+    }
+    .sidebar .sidebar-content {
+        background-color: #333;
+        color: white;
+    }
+    .markdown-text-container {
+        color: white;
+    }
+    .stButton > button {
+        background-color: #444;
+        color: white;
+    }
+    .stSelectbox > div, .stRadio > div {
+        color: white;
+    }
+    </style>
+"""
+
 # Set the title of the Streamlit app
 st.title("Global Terrorism Analysis")
 
@@ -10,64 +60,16 @@ st.title("Global Terrorism Analysis")
 st.markdown("""
 This application provides an interactive interface to explore the Global Terrorism dataset.
 You can view various plots and insights extracted from the data.
-""")
+""", unsafe_allow_html=True)
 
 # Add a theme toggle to the sidebar
 theme = st.sidebar.radio("Select Theme", ["Light", "Dark"])
 
 # Apply theme based on user selection
 if theme == "Dark":
-    st.markdown(
-        """
-        <style>
-        .reportview-container {
-            background-color: #2e2e2e;
-            color: white;
-        }
-        .sidebar .sidebar-content {
-            background-color: #333;
-            color: white;
-        }
-        .markdown-text-container {
-            color: white;
-        }
-        .stButton > button {
-            background-color: #444;
-            color: white;
-        }
-        .stSelectbox > div, .stRadio > div {
-            color: white;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
+    st.markdown(dark_theme_css, unsafe_allow_html=True)
 else:
-    st.markdown(
-        """
-        <style>
-        .reportview-container {
-            background-color: #ffffff;
-            color: black;
-        }
-        .sidebar .sidebar-content {
-            background-color: #f5f5f5;
-            color: black;
-        }
-        .markdown-text-container {
-            color: black;
-        }
-        .stButton > button {
-            background-color: #e0e0e0;
-            color: black;
-        }
-        .stSelectbox > div, .stRadio > div {
-            color: black;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
+    st.markdown(light_theme_css, unsafe_allow_html=True)
 
 # Load the dataset (update the path to where your dataset is located)
 @st.cache_data
@@ -90,7 +92,6 @@ def load_data():
     df = df.dropna()
     df = df.astype({'killed': 'int'})
     return df
-
 
 data = load_data()
 
@@ -212,11 +213,9 @@ elif page == "Attack Methods":
 elif page == "Most Active Terrorist Organizations":
     st.subheader("Most Active Terrorist Organizations")
 
-    # Create `g_type` by counting the occurrences of each organization
+    # Get the top 10 organizations
     g_type = data['organization'].value_counts().reset_index()
     g_type.columns = ['organization_name', 'count']  # Rename columns for clarity
-
-    # Sort and get the top 10 organizations
     g_type = g_type.head(10)
 
     # Plot the bar plot with grid and custom colors
@@ -377,3 +376,4 @@ elif page == "Top 5 Deadliest Years":
     plt.grid(True)  # Add grid to the plot
 
     st.pyplot(plt)
+
