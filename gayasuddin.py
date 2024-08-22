@@ -35,6 +35,9 @@ if theme == "Dark":
             background-color: #444;
             color: white;
         }
+        .stSelectbox > div, .stRadio > div {
+            color: white;
+        }
         </style>
         """,
         unsafe_allow_html=True,
@@ -56,6 +59,9 @@ else:
         }
         .stButton > button {
             background-color: #e0e0e0;
+            color: black;
+        }
+        .stSelectbox > div, .stRadio > div {
             color: black;
         }
         </style>
@@ -92,10 +98,11 @@ data = load_data()
 st.sidebar.header("Navigation")
 page = st.sidebar.selectbox(
     "Choose a visualization",
-    ["Dataset Overview", "Year-wise Attacks","Region and Year-wise Terrorist Attacks" ,"Region-wise Attacks", "Top 10 Affected Countries", "Attack Methods",
-     "Most Active Terrorist Organizations",
-     "Top 10 Countries - People Killed", "Most Affected Cities", "North America Killings", "South Asia Killings",
-     "Middle East Killings", "Top 10 Terrorist Organizations", "Top 5 Targets", "Top 5 Deadliest Years"]
+    ["Dataset Overview", "Year-wise Attacks", "Region and Year-wise Terrorist Attacks", "Region-wise Attacks", 
+     "Top 10 Affected Countries", "Attack Methods", "Most Active Terrorist Organizations", 
+     "Top 10 Countries - People Killed", "Most Affected Cities", "North America Killings", 
+     "South Asia Killings", "Middle East Killings", "Top 10 Terrorist Organizations", 
+     "Top 5 Targets", "Top 5 Deadliest Years"]
 )
 
 # Display different visualizations based on the selection
@@ -121,10 +128,8 @@ elif page == "Year-wise Attacks":
     plt.grid(True)  # Add grid
 
     # Add some additional customization
-    plt.fill_between(yearly_attacks.index, yearly_attacks.values, color='red',
-                     alpha=0.1)  # Add area fill under the line
-    plt.axhline(y=yearly_attacks.mean(), color='blue', linestyle='--', linewidth=1,
-                label=f'Average Attacks ({yearly_attacks.mean():.2f})')  # Add horizontal line for average attacks
+    plt.fill_between(yearly_attacks.index, yearly_attacks.values, color='red', alpha=0.1)  # Add area fill under the line
+    plt.axhline(y=yearly_attacks.mean(), color='blue', linestyle='--', linewidth=1, label=f'Average Attacks ({yearly_attacks.mean():.2f})')  # Add horizontal line for average attacks
     plt.legend()
 
     st.pyplot(plt)
@@ -211,129 +216,164 @@ elif page == "Most Active Terrorist Organizations":
     g_type = data['organization'].value_counts().reset_index()
     g_type.columns = ['organization_name', 'count']  # Rename columns for clarity
 
-    # Sort and select top 10 most active terrorist organizations
-    top_organizations = g_type.sort_values(by='count', ascending=False).head(10)
+    # Sort and get the top 10 organizations
+    g_type = g_type.head(10)
 
-    plt.figure(figsize=(10, 5))
-    sns.barplot(x='organization_name', y='count', data=top_organizations, ec='black', palette='flare')
-    plt.title('Most Active Terrorist Organizations in the World', fontsize=20)
-    plt.xlabel('Organization Name', fontsize=15)
-    plt.ylabel('Count', fontsize=15)
-    plt.xticks(rotation=45, ha='right')  # Rotate x-axis labels for better readability
-    plt.grid(True)
+    # Plot the bar plot with grid and custom colors
+    plt.figure(figsize=(8, 6))
+    sns.barplot(x='count', y='organization_name', data=g_type, palette='viridis', ec='black')
+    plt.title('Top 10 Most Active Terrorist Organizations', fontsize=16)
+    plt.xlabel('Number of Attacks', fontsize=14)
+    plt.ylabel('Organization', fontsize=14)
+    plt.grid(True)  # Add grid to the plot
 
     st.pyplot(plt)
 
 elif page == "Top 10 Countries - People Killed":
-    st.subheader("Top 10 Countries Where Most People Were Killed")
-    top10_c = data.groupby('country')['killed'].sum().sort_values(ascending=False).head(10).reset_index()
+    st.subheader("Top 10 Countries by Number of People Killed")
 
-    plt.figure(figsize=(10, 5))
-    sns.barplot(y='killed', x='country', data=top10_c, ec='black')
-    plt.xlabel('Country')
-    plt.ylabel('Number of People Killed')
-    plt.grid(True)
+    # Count the total number of people killed by country
+    country_kills = data.groupby('country')['killed'].sum().reset_index().sort_values(by='killed', ascending=False).head(10)
+    
+    # Define custom colors for each bar
+    colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink', 'brown', 'gray', 'cyan']
+
+    # Plot the bar plot with grid and custom colors
+    plt.figure(figsize=(8, 6))
+    sns.barplot(x='killed', y='country', data=country_kills, palette=colors, ec='black')
+    plt.title('Top 10 Countries by Number of People Killed', fontsize=16)
+    plt.xlabel('Number of People Killed', fontsize=14)
+    plt.ylabel('Country', fontsize=14)
+    plt.grid(True)  # Add grid to the plot
+
     st.pyplot(plt)
 
 elif page == "Most Affected Cities":
     st.subheader("Most Affected Cities")
 
-    # Ensure the correct column name is used and the data is aggregated properly
+    # Get the top 10 cities affected by terrorism
     top_cities = data['city'].value_counts().head(10).reset_index()
-    top_cities.columns = ['city', 'count']  # Renaming columns for clarity
+    top_cities.columns = ['city', 'count']  # Rename columns for clarity
 
-    plt.figure(figsize=(10, 5))
-    sns.barplot(x='city', y='count', data=top_cities, ec='black', palette='Set3')
-    plt.title("Most Affected Cities in the World", fontsize=15)
-    plt.xlabel('City', fontsize=12)
-    plt.ylabel("Number of Attacks", fontsize=12)
-    plt.xticks(rotation=45, ha='right')
-    plt.grid(True)
+    # Define custom colors for each bar
+    colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink', 'brown', 'gray', 'cyan']
+
+    # Plot the bar plot with grid and custom colors
+    plt.figure(figsize=(8, 6))
+    sns.barplot(x='count', y='city', data=top_cities, palette=colors, ec='black')
+    plt.title('Top 10 Most Affected Cities', fontsize=16)
+    plt.xlabel('Number of Attacks', fontsize=14)
+    plt.ylabel('City', fontsize=14)
+    plt.grid(True)  # Add grid to the plot
+
     st.pyplot(plt)
 
 elif page == "North America Killings":
-    st.subheader("Number of People Killed in North America Over the Years")
-    a_a = data[(data['region'].isin(['North America']))].groupby(['year', 'country'])['killed'].sum().reset_index()
+    st.subheader("North America - Total Killings")
 
-    plt.figure(figsize=(10, 5))
-    sns.lineplot(data=a_a, x='year', y='killed', hue='country', style='country', palette='magma_r', markers=True,
-                 dashes=False)
-    plt.title("Total People Killed in North America Over the Years")
-    plt.xlabel('Year')
-    plt.ylabel('Number of People Killed')
-    plt.grid(True)
+    # Filter data for North America
+    north_america_data = data[data['region'] == 'North America']
+
+    # Plot total killings by country in North America
+    plt.figure(figsize=(10, 6))
+    sns.barplot(x='country', y='killed', data=north_america_data.groupby('country')['killed'].sum().reset_index().sort_values(by='killed', ascending=False), color='blue', ec='black')
+    plt.xticks(rotation=45)
+    plt.title('Total Killings by Country in North America', fontsize=16)
+    plt.xlabel('Country', fontsize=14)
+    plt.ylabel('Total Killings', fontsize=14)
+    plt.grid(True)  # Add grid to the plot
+
     st.pyplot(plt)
 
 elif page == "South Asia Killings":
-    st.subheader("Number of People Killed in South Asia Over the Years")
-    a_a = \
-    data[(data['region'].isin(['South Asia'])) & (data['country'].isin(['Pakistan', 'Afghanistan', 'India']))].groupby(
-        ['year', 'country'])['killed'].sum().reset_index()
+    st.subheader("South Asia - Total Killings")
 
-    plt.figure(figsize=(10, 5))
-    sns.lineplot(data=a_a, x='year', y='killed', hue='country', style='country', palette='magma_r', markers=True,
-                 dashes=False)
-    plt.title("Total People Killed in Pakistan, Afghanistan, and India Over the Years")
-    plt.xlabel('Year')
-    plt.ylabel('Number of People Killed')
-    plt.grid(True)
+    # Filter data for South Asia
+    south_asia_data = data[data['region'] == 'South Asia']
+
+    # Plot total killings by country in South Asia
+    plt.figure(figsize=(10, 6))
+    sns.barplot(x='country', y='killed', data=south_asia_data.groupby('country')['killed'].sum().reset_index().sort_values(by='killed', ascending=False), color='green', ec='black')
+    plt.xticks(rotation=45)
+    plt.title('Total Killings by Country in South Asia', fontsize=16)
+    plt.xlabel('Country', fontsize=14)
+    plt.ylabel('Total Killings', fontsize=14)
+    plt.grid(True)  # Add grid to the plot
+
     st.pyplot(plt)
 
 elif page == "Middle East Killings":
-    st.subheader("Number of People Killed in the Middle East Over the Years")
-    a_a = \
-    data[(data['region'].isin(['Middle East & North Africa'])) & (data['country'].isin(['Iraq', 'Syria']))].groupby(
-        ['year', 'country'])['killed'].sum().reset_index()
+    st.subheader("Middle East - Total Killings")
 
-    plt.figure(figsize=(10, 5))
-    sns.lineplot(data=a_a, x='year', y='killed', hue='country', style='country', palette='magma_r', markers=True,
-                 dashes=False)
-    plt.title("Total People Killed in Iraq and Syria Over the Years")
-    plt.xlabel('Year')
-    plt.ylabel('Number of People Killed')
-    plt.grid(True)
+    # Filter data for the Middle East
+    middle_east_data = data[data['region'] == 'Middle East']
+
+    # Plot total killings by country in the Middle East
+    plt.figure(figsize=(10, 6))
+    sns.barplot(x='country', y='killed', data=middle_east_data.groupby('country')['killed'].sum().reset_index().sort_values(by='killed', ascending=False), color='purple', ec='black')
+    plt.xticks(rotation=45)
+    plt.title('Total Killings by Country in the Middle East', fontsize=16)
+    plt.xlabel('Country', fontsize=14)
+    plt.ylabel('Total Killings', fontsize=14)
+    plt.grid(True)  # Add grid to the plot
+
     st.pyplot(plt)
 
 elif page == "Top 10 Terrorist Organizations":
     st.subheader("Top 10 Terrorist Organizations")
 
-    # Ensure the correct column name is used
-    top_organizations = data['organization'].value_counts().head(10).reset_index()
-    top_organizations.columns = ['organization', 'count']  # Renaming columns for clarity
+    # Get the top 10 terrorist organizations by the number of attacks
+    top_orgs = data['organization'].value_counts().head(10).reset_index()
+    top_orgs.columns = ['organization', 'count']  # Rename columns for clarity
 
-    plt.figure(figsize=(10,5))  # Increase the height of the plot for better readability
-    sns.barplot(x='organization', y='count', data=top_organizations, ec='black', lw=1)
+    # Define custom colors for each bar
+    colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink', 'brown', 'gray', 'cyan']
 
-    plt.xlabel('Organization', fontsize=12)
-    plt.ylabel('Number of Attacks', fontsize=12)
+    # Plot the bar plot with grid and custom colors
+    plt.figure(figsize=(8, 6))
+    sns.barplot(x='count', y='organization', data=top_orgs, palette=colors, ec='black')
     plt.title('Top 10 Terrorist Organizations by Number of Attacks', fontsize=16)
+    plt.xlabel('Number of Attacks', fontsize=14)
+    plt.ylabel('Organization', fontsize=14)
+    plt.grid(True)  # Add grid to the plot
 
-    plt.xticks(rotation=45, ha='right', fontsize=10)  # Rotate x-axis labels for clarity
-    plt.grid(True)
     st.pyplot(plt)
 
 elif page == "Top 5 Targets":
-    st.subheader("Top 5 Targets of Terrorists")
-    top_targets = data['target'].value_counts().head(5)
+    st.subheader("Top 5 Targets")
 
-    plt.figure(figsize=(10, 5))
-    sns.barplot(x=top_targets.index, y=top_targets.values, palette=['red', 'yellow', 'green', 'black', 'pink'],
-                ec='black')
-    plt.xlabel('Target')
-    plt.ylabel('Number of Attacks')
-    plt.grid(True)
+    # Get the top 5 targets by the number of attacks
+    top_targets = data['target'].value_counts().head(5).reset_index()
+    top_targets.columns = ['target', 'count']  # Rename columns for clarity
+
+    # Define custom colors for each bar
+    colors = ['red', 'orange', 'yellow', 'green', 'blue']
+
+    # Plot the bar plot with grid and custom colors
+    plt.figure(figsize=(8, 6))
+    sns.barplot(x='count', y='target', data=top_targets, palette=colors, ec='black')
+    plt.title('Top 5 Targets by Number of Attacks', fontsize=16)
+    plt.xlabel('Number of Attacks', fontsize=14)
+    plt.ylabel('Target', fontsize=14)
+    plt.grid(True)  # Add grid to the plot
+
     st.pyplot(plt)
 
 elif page == "Top 5 Deadliest Years":
     st.subheader("Top 5 Deadliest Years")
-    year_killed = data.groupby('year')['killed'].sum().sort_values(ascending=False).head(5).reset_index()
 
-    plt.figure(figsize=(10, 5))
-    sns.barplot(x='year', y='killed', data=year_killed, palette=['red', 'orange', 'pink', 'blue', 'yellow'], ec='black')
-    plt.xlabel('Year')
-    plt.ylabel('Number of People Killed')
-    plt.grid(True)
+    # Get the top 5 deadliest years by the number of people killed
+    top_years = data.groupby('year')['killed'].sum().reset_index().sort_values(by='killed', ascending=False).head(5)
+
+    # Define custom colors for each bar
+    colors = ['red', 'orange', 'yellow', 'green', 'blue']
+
+    # Plot the bar plot with grid and custom colors
+    plt.figure(figsize=(8, 6))
+    sns.barplot(x='year', y='killed', data=top_years, palette=colors, ec='black')
+    plt.title('Top 5 Deadliest Years by Number of People Killed', fontsize=16)
+    plt.xlabel('Year', fontsize=14)
+    plt.ylabel('Number of People Killed', fontsize=14)
+    plt.grid(True)  # Add grid to the plot
+
     st.pyplot(plt)
-
-# Footer
-st.sidebar.info("© 2024 Global Terrorism Analysis")
