@@ -14,7 +14,6 @@ This application provides an interactive interface to explore the Global Terrori
 You can view various plots and insights extracted from the data.
 """)
 
-
 # URL of the raw file
 url = 'https://github.com/GayasuddinMohd/Global-Terrorism-Patterns-A-Data-Analysis-Perspective/raw/main/globalterrorism.xlsx'
 
@@ -25,7 +24,7 @@ response.raise_for_status()  # Check if the request was successful
 # Load the Excel file into a pandas DataFrame
 df = pd.read_excel(BytesIO(response.content))
 
-# Now you can work with the DataFrame as usual
+# Display the raw data in Streamlit
 st.write(df)
 
 # Extract and rename relevant columns
@@ -43,8 +42,11 @@ df.rename(columns={
 # Drop rows with missing values and clean the data
 df = df.dropna()
 df = df.astype({'killed': 'int'})
-return df
 
+# Display the cleaned data in Streamlit
+st.write(df)
+
+# You can now add more analysis and visualizations here
 
 data = load_data()
 
