@@ -25,15 +25,6 @@ The Terrorism data analysis delves into the complex landscape of terrorist incid
 * Terrorists target Private Citizens & Property maximum number of times.
 * Year 2014 is the deadliest year in the history of terrorism. About 16000 people died in the single year by terrorism.
 
-# Live Web App
-https://global-terrorism-patterns-a-data-analysis-perspective-fhyspzyt.streamlit.app/
-
-
-
-
-
-
-
 
 
 
