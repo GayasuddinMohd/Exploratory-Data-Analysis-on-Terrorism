@@ -2,8 +2,6 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import requests
-from io import BytesIO
 
 # Set the title of the Streamlit app
 st.title("Global Terrorism Analysis")
@@ -14,22 +12,15 @@ This application provides an interactive interface to explore the Global Terrori
 You can view various plots and insights extracted from the data.
 """)
 
-# URL of the raw file
-url = 'https://github.com/GayasuddinMohd/Global-Terrorism-Patterns-A-Data-Analysis-Perspective/raw/main/globalterrorism.xlsx'
 
-# Download the file
-response = requests.get(url)
-response.raise_for_status()  # Check if the request was successful
+# Load the dataset (update the path to where your dataset is located)
+@st.cache_data
+def load_data():
+    df = pd.read_excel("C:\\Users\\abc\\Desktop\\globalterrorism.xlsx")
 
-# Load the Excel file into a pandas DataFrame
-df = pd.read_excel(BytesIO(response.content))
-
-# Display the raw data in Streamlit
-st.write(df)
-
-# Extract and rename relevant columns
-df = df[['iyear', 'country_txt', 'region_txt', 'city', 'attacktype1_txt', 'targtype1_txt', 'gname', 'nkill']]
-df.rename(columns={
+    # Extract and rename relevant columns
+    df = df[['iyear', 'country_txt', 'region_txt', 'city', 'attacktype1_txt', 'targtype1_txt', 'gname', 'nkill']]
+    df.rename(columns={
         'iyear': 'year',
         'country_txt': 'country',
         'region_txt': 'region',
@@ -37,16 +28,13 @@ df.rename(columns={
         'targtype1_txt': 'target',
         'gname': 'organization',
         'nkill': 'killed'
-}, inplace=True)
+    }, inplace=True)
 
-# Drop rows with missing values and clean the data
-df = df.dropna()
-df = df.astype({'killed': 'int'})
+    # Drop rows with missing values and clean the data
+    df = df.dropna()
+    df = df.astype({'killed': 'int'})
+    return df
 
-# Display the cleaned data in Streamlit
-st.write(df)
-
-# You can now add more analysis and visualizations here
 
 data = load_data()
 
