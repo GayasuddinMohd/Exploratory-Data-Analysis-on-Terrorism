@@ -12,6 +12,56 @@ This application provides an interactive interface to explore the Global Terrori
 You can view various plots and insights extracted from the data.
 """)
 
+# Add a theme toggle to the sidebar
+theme = st.sidebar.radio("Select Theme", ["Light", "Dark"])
+
+# Apply theme based on user selection
+if theme == "Dark":
+    st.markdown(
+        """
+        <style>
+        .reportview-container {
+            background-color: #2e2e2e;
+            color: white;
+        }
+        .sidebar .sidebar-content {
+            background-color: #333;
+            color: white;
+        }
+        .markdown-text-container {
+            color: white;
+        }
+        .stButton > button {
+            background-color: #444;
+            color: white;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+else:
+    st.markdown(
+        """
+        <style>
+        .reportview-container {
+            background-color: #ffffff;
+            color: black;
+        }
+        .sidebar .sidebar-content {
+            background-color: #f5f5f5;
+            color: black;
+        }
+        .markdown-text-container {
+            color: black;
+        }
+        .stButton > button {
+            background-color: #e0e0e0;
+            color: black;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
 
 # Load the dataset (update the path to where your dataset is located)
 @st.cache_data
