@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import requests
+from io import BytesIO
 
 # Set the title of the Streamlit app
 st.title("Global Terrorism Analysis")
@@ -13,10 +15,18 @@ You can view various plots and insights extracted from the data.
 """)
 
 
-# Load the dataset (update the path to where your dataset is located)
-@st.cache_data
-def load_data():
-    df = pd.read_excel("C:\\Users\\abc\\Desktop\\globalterrorism.xlsx")
+# URL of the raw file
+url = 'https://github.com/GayasuddinMohd/Global-Terrorism-Patterns-A-Data-Analysis-Perspective/raw/main/globalterrorism.xlsx'
+
+# Download the file
+response = requests.get(url)
+response.raise_for_status()  # Check if the request was successful
+
+# Load the Excel file into a pandas DataFrame
+df = pd.read_excel(BytesIO(response.content))
+
+# Now you can work with the DataFrame as usual
+st.write(df)
 
     # Extract and rename relevant columns
     df = df[['iyear', 'country_txt', 'region_txt', 'city', 'attacktype1_txt', 'targtype1_txt', 'gname', 'nkill']]
